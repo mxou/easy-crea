@@ -11,7 +11,7 @@ class CarteController {
     // Afficher une carte
     public function afficherCarte($id) {
         $carte = $this->carteModel->obtenirCarte($id);
-        require 'views/carte/afficherCarte.php';  // Appelle la vue pour afficher la carte
+        require './../views/carte/afficherCarte.php';  // Appelle la vue pour afficher la carte
     }
 
     // Créer une nouvelle carte
@@ -25,6 +25,17 @@ class CarteController {
 
         $date_soumission = date('Y-m-d H:i:s');
         $ordre = $_POST['ordre'];
+
+               // Encodage des choix en JSON
+        $choix1 = json_encode([
+            'population' => $choix1_population,
+            'finances' => $choix1_finances
+        ]);
+
+        $choix2 = json_encode([
+            'population' => $choix2_population,
+            'finances' => $choix2_finances
+        ]);
 
         // Appelle la méthode pour créer une carte
         $this->carteModel->creerCarte(

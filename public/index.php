@@ -35,10 +35,16 @@ if (isset($_GET['action'])) {
             $carteController->creerCarte();
             break;
 
-        // Cas ajouté pour la page de succès
         case 'success':
-    require './../views/carte/success.php';
-    break;
+            require './../views/carte/success.php';
+            break;
+
+             case 'inscription':
+            $utilisateurController->inscription();
+            break;
+        case 'connexion':
+            $utilisateurController->connexion();
+            break;
 
      case 'accueil':
         default:
