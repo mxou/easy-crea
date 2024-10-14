@@ -15,21 +15,36 @@ class CarteController {
     }
 
     // Créer une nouvelle carte
-    public function creerCarte() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $texte = $_POST['texte'];
-            $choix1 = $_POST['choix1'];
-            $choix2 = $_POST['choix2'];
-            $date_soumission = date('Y-m-d H:i:s');  // Format de date avec heure
-            $ordre = $_POST['ordre'];
+   public function creerCarte() {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $texte = $_POST['texte'];
+        $choix1_population = $_POST['choix1_population'];
+        $choix1_finances = $_POST['choix1_finances'];
+        $choix2_population = $_POST['choix2_population'];
+        $choix2_finances = $_POST['choix2_finances'];
 
-            // Appelle la méthode pour créer une carte
-            $this->carteModel->creerCarte($texte, $choix1, $choix2, $date_soumission, $ordre);
-            header('Location: /carte/success'); // Redirection vers une page de succès
-            exit(); // Toujours utiliser exit après header
-        } else {
-            require './../views/carte/formulaireCarte.php';  // Affiche le formulaire
-        }
+        $date_soumission = date('Y-m-d H:i:s');
+        $ordre = $_POST['ordre'];
+
+        // Appelle la méthode pour créer une carte
+        $this->carteModel->creerCarte(
+            $texte, 
+            $choix1_population, 
+            $choix1_finances, 
+            $choix2_population, 
+            $choix2_finances, 
+            $date_soumission, 
+            $ordre
+        );
+
+        // Redirection corrigée
+        header('Location: /easy-crea/public/index.php?action=success');
+        exit();
+    } else {
+        require './../views/carte/formulaireCarte.php';
     }
+}
+
+
 }
 ?>

@@ -7,14 +7,16 @@ class Carte {
     }
 
     // Créer une nouvelle carte
-    public function creerCarte($texte, $choix1, $choix2, $date_soumission, $ordre) {
-        $sql = "INSERT INTO carte (texte_carte, valeurs_choix1, valeurs_choix2, date_soumission, ordre_soumission)
-                VALUES (:texte, :choix1, :choix2, :date_soumission, :ordre)";
+    public function creerCarte($texte, $choix1_population, $choix1_finances, $choix2_population, $choix2_finances, $date_soumission, $ordre) {
+        $sql = "INSERT INTO carte (texte_carte, choix1_population, choix1_finances, choix2_population, choix2_finances, date_soumission, ordre_soumission)
+                VALUES (:texte, :choix1_population, :choix1_finances, :choix2_population, :choix2_finances, :date_soumission, :ordre)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             ':texte' => $texte,
-            ':choix1' => $choix1,
-            ':choix2' => $choix2,
+            ':choix1_population' => $choix1_population,
+            ':choix1_finances' => $choix1_finances,
+            ':choix2_population' => $choix2_population,
+            ':choix2_finances' => $choix2_finances,
             ':date_soumission' => $date_soumission,
             ':ordre' => $ordre
         ]);
@@ -28,4 +30,5 @@ class Carte {
         return $stmt->fetch();
     }
 }
+
 ?>

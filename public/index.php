@@ -1,39 +1,36 @@
 <?php
-require_once '../config/config.local.php'; // Assurez-vous que ce chemin est correct
+require_once '../config/config.local.php';
 require_once '../controllers/CarteController.php';
 
 // Routeur simple pour traiter les requêtes
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
+    $carteController = new CarteController($db);
 
-    // Vérifie que la connexion à la base de données est établie
-    if (isset($db)) {
-        $carteController = new CarteController($db);
+    switch ($action) {
+        case 'afficher':
+            $id = $_GET['id'];
+            $carteController->afficherCarte($id);
+            break;
 
-        switch ($action) {
-            case 'afficher':
-                // Vérifie si l'ID est fourni dans l'URL
-                if (isset($_GET['id'])) {
-                    $id = intval($_GET['id']); // Assure-toi que l'ID est un entier
-                    $carteController->afficherCarte($id);
-                } else {
-                    echo "Aucun ID de carte spécifié.";
-                }
-                break;
+        case 'creer':
+            $carteController->creerCarte();
+            break;
 
-            case 'creer':
-                $carteController->creerCarte();
-                break;
+        // Cas ajouté pour la page de succès
+        case 'success':
+    require './../views/carte/success.php';
+    break;
 
-            default:
-                echo "Action non reconnue.";
-        }
-    } else {
-        echo "Erreur de connexion à la base de données.";
+    case 'home':
+    require './index.php';
+    break;
+
+
+        default:
+            echo "Action non reconnue";
     }
 } else {
-    // Afficher la page d'accueil
-    echo "<h1>Bienvenue sur EasyCrea</h1>";
-    echo '<a href="?action=creer">Créer une carte</a>'; // Lien vers le formulaire de création
+    echo "Bienvenue sur EasyCrea";
+    echo '<a href="?action=creer">Créer une carte</a> </br>'; 
 }
-?>
