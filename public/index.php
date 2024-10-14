@@ -1,11 +1,29 @@
 <?php
 require_once '../config/config.local.php';
 require_once '../controllers/CarteController.php';
+require_once '../controllers/AccueilController.php';
+
+// Gestion des erreurs personnalisées
+set_error_handler(function($errno, $errstr, $errfile, $errline) {
+    // Inclure une vue d'erreur
+    require './../views/error.php';
+    exit;
+});
+
+// Gestion des exceptions
+set_exception_handler(function($exception) {
+    // Inclure une vue d'erreur
+    require './../views/error.php';
+    exit;
+});
+
+
 
 // Routeur simple pour traiter les requêtes
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
     $carteController = new CarteController($db);
+    $accueilController = new HomeController();
 
     switch ($action) {
         case 'afficher':
@@ -22,15 +40,12 @@ if (isset($_GET['action'])) {
     require './../views/carte/success.php';
     break;
 
-    case 'home':
-    require './index.php';
-    break;
-
-
+     case 'accueil':
         default:
-            echo "Action non reconnue";
+            $accueilController->index(); 
+            break;
     }
 } else {
-    echo "Bienvenue sur EasyCrea";
-    echo '<a href="?action=creer">Créer une carte</a> </br>'; 
+    $accueilController = new HomeController();
+    $accueilController->index();
 }
