@@ -20,13 +20,15 @@ class CarteController {
             $texte = $_POST['texte'];
             $choix1 = $_POST['choix1'];
             $choix2 = $_POST['choix2'];
-            $date_soumission = date('Y-m-d');
+            $date_soumission = date('Y-m-d H:i:s');  // Format de date avec heure
             $ordre = $_POST['ordre'];
 
+            // Appelle la méthode pour créer une carte
             $this->carteModel->creerCarte($texte, $choix1, $choix2, $date_soumission, $ordre);
-            header('Location: /carte/success');
+            header('Location: /carte/success'); // Redirection vers une page de succès
+            exit(); // Toujours utiliser exit après header
         } else {
-            require 'views/carte/formulaireCarte.php';  // Appelle la vue du formulaire de création
+            require './../views/carte/formulaireCarte.php';  // Affiche le formulaire
         }
     }
 }

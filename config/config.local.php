@@ -22,3 +22,12 @@ define('APP_DB_PASSWORD', '');
  * le préfixe des tables dans la base (utile pour les bases partagées)
  */
 define('APP_TABLE_PREFIX', '');
+
+// Établir la connexion à la base de données
+try {
+    $db = new PDO(APP_DB_DSN, APP_DB_USER, APP_DB_PASSWORD);
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Erreur de connexion : " . $e->getMessage());
+}
+?>
