@@ -2,6 +2,7 @@
 require_once '../config/config.local.php';
 require_once '../controllers/CarteController.php';
 require_once '../controllers/AccueilController.php';
+require_once '../controllers/UtilisateurController.php';
 
 // Gestion des erreurs personnalisées
 set_error_handler(function($errno, $errstr, $errfile, $errline) {
@@ -24,6 +25,7 @@ if (isset($_GET['action'])) {
     $action = $_GET['action'];
     $carteController = new CarteController($db);
     $accueilController = new HomeController();
+    $utilisateurController = new UtilisateurController($db);
 
     switch ($action) {
         case 'afficher':

@@ -8,33 +8,39 @@ class UtilisateurController {
         $this->utilisateurModel = new Utilisateur($db);
     }
 
-    // Gérer l'inscription
+    // Inscription d'un nouvel utilisateur
     public function inscription() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
+            // Récupérer les données du formulaire
+            $nom_createur = $_POST['nom_createur'];
+            $ad_mail_createur = $_POST['ad_mail_createur'];
+            $mdp_createur = $_POST['mdp_createur'];
+            $genre = $_POST['genre'];
+            $ddn = $_POST['ddn'];
 
-            // Appelle la méthode pour créer un utilisateur
-            $this->utilisateurModel->creerUtilisateur($username, $password);
-            header('Location: /easy-crea/public/index.php?action=success');
+            // Créer un nouvel utilisateur
+            $this->utilisateurModel->creerUtilisateur($nom_createur, $ad_mail_createur, $mdp_createur, $genre, $ddn);
+
+            // Rediriger vers la page de connexion après l'inscription
+            header('Location: /easy-crea/public/index.php?action=connexion');
             exit();
         } else {
             require './../views/utilisateur/inscription.php'; // Affiche le formulaire d'inscription
         }
     }
 
-    // Gérer la connexion
+    // Connexion d'un utilisateur
     public function connexion() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
+            $nom_createur = $_POST['nom_createur'];
+            $mdp_createur = $_POST['mdp_createur'];
 
-            // Vérifie les informations de l'utilisateur
-            if ($this->utilisateurModel->verifierUtilisateur($username, $password)) {
-                // Gérer la session de l'utilisateur ici
-                session_start();
-                $_SESSION['utilisateur'] = $username; // Stocke le nom d'utilisateur dans la session
-                header('Location: /easy-crea/public/index.php?action=success');
+            // Vérifier les informations de connexion
+            $utilisateur = $this->utilisateurModel->verifierUtilisateur($nom_createur, $mdp_createur);
+            if ($utilisateur) {
+                // Stocker les informations de l'utilisateur dans la session
+                $_SESSION['utilisateur'] = $utilisateur;
+                header('Location: /easy-crea/public/index.php?action=accueil');
                 exit();
             } else {
                 $error = "Nom d'utilisateur ou mot de passe incorrect.";
