@@ -18,13 +18,11 @@ set_exception_handler(function($exception) {
     exit;
 });
 
-
-
 // Routeur simple pour traiter les requêtes
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
     $carteController = new CarteController($db);
-    $accueilController = new HomeController();
+    $accueilController = new AccueilController(); // Corrigé ici : HomeController -> AccueilController
     $utilisateurController = new UtilisateurController($db);
 
     switch ($action) {
@@ -41,19 +39,25 @@ if (isset($_GET['action'])) {
             require './../views/carte/success.php';
             break;
 
-             case 'inscription':
+        case 'inscription':
             $utilisateurController->inscription();
             break;
+
         case 'connexion':
             $utilisateurController->connexion();
             break;
 
-     case 'accueil':
+        case 'accueil':
+            $accueilController->index();
+            break;
+
         default:
+            // Si l'action n'est pas reconnue, redirige vers la page d'accueil
             $accueilController->index(); 
             break;
     }
 } else {
-    $accueilController = new HomeController();
-    $accueilController->index();
+    // Redirection vers la page de connexion si aucune action n'est spécifiée
+    header('Location: /easy-crea/public/index.php?action=connexion');
+    exit(); // Assurez-vous d'utiliser exit après header pour éviter toute sortie supplémentaire
 }
