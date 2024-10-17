@@ -22,15 +22,20 @@ class Utilisateur {
 
     // Vérifier les informations de connexion
     public function verifierUtilisateur($nom_createur, $mdp_createur) {
-        $sql = "SELECT * FROM createur WHERE nom_createur = :nom_createur";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([':nom_createur' => $nom_createur]);
-        $user = $stmt->fetch();
+    $sql = "SELECT * FROM createur WHERE nom_createur = :nom_createur";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute([':nom_createur' => $nom_createur]);
 
-        if ($user && password_verify($mdp_createur, $user['mdp_createur'])) {
-            return $user; // Renvoie l'utilisateur en cas de succès
-        }
-        return false; // Échec de la vérification
+    $utilisateur = $stmt->fetch();
+    
+    // Vérification du mot de passe
+    if ($utilisateur && password_verify($mdp_createur, $utilisateur['mdp_createur'])) {
+        return $utilisateur; // Retourne toutes les informations de l'utilisateur, y compris le rôle
+    } else {
+        return false; // Connexion échouée
     }
+}
+
+
 }
 ?>

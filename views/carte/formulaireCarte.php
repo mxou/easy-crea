@@ -6,12 +6,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Créer une Carte</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="stylesheet" href="./assets/styles/style.css">
 </head>
 
 <body>
     <h1>Créer une Nouvelle Carte</h1>
-    <form method="POST" action="/easy-crea/public/index.php?action=creer">
+    <form id="carte_form" method="POST" action="/easy-crea/public/index.php?action=creerCarte">
         <label for="texte">Texte de la carte :</label>
         <textarea id="texte" name="texte" required></textarea> <br> <br>
 
@@ -32,6 +32,8 @@
 
         <button type="submit">Créer la carte</button>
     </form>
+
+    <a href="./index.php?action=accueil">Retour a l'accueil</a>
 
 </body>
 

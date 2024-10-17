@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <h1>Carte créée avec succès !</h1>
+    <h1>Succès !</h1>
     <a href="/easy-crea/public/index.php">Retour à l'accueil</a> <!-- Lien vers l'accueil -->
 </body>
 

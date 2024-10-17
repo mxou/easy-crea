@@ -29,6 +29,15 @@ class Carte {
         $stmt->execute([':id' => $id]);
         return $stmt->fetch();
     }
+
+    // Récupérer toutes les cartes
+    public function obtenirToutesLesCartes() {
+        $sql = "SELECT * FROM carte";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(); // Récupère toutes les cartes sous forme de tableau
+}
+
 }
 
 ?>

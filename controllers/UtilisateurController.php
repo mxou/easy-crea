@@ -31,24 +31,36 @@ class UtilisateurController {
 
     // Connexion d'un utilisateur
     public function connexion() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $nom_createur = $_POST['nom_createur'];
-            $mdp_createur = $_POST['mdp_createur'];
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $nom_createur = $_POST['nom_createur'];
+        $mdp_createur = $_POST['mdp_createur'];
 
-            // Vérifier les informations de connexion
-            $utilisateur = $this->utilisateurModel->verifierUtilisateur($nom_createur, $mdp_createur);
-            if ($utilisateur) {
-                // Stocker les informations de l'utilisateur dans la session
-                $_SESSION['utilisateur'] = $utilisateur;
-                header('Location: /easy-crea/public/index.php?action=accueil');
-                exit();
+        // Vérification des informations de connexion
+        $utilisateur = $this->utilisateurModel->verifierUtilisateur($nom_createur, $mdp_createur);
+        if ($utilisateur) {
+            // Stocker les informations de l'utilisateur dans la session, y compris son rôle
+            $_SESSION['utilisateur'] = [
+                'id_createur' => $utilisateur['id_createur'],
+                'nom_createur' => $utilisateur['nom_createur'],
+                'role_createur' => $utilisateur['role_createur'] // Rôle de l'utilisateur
+            ];
+
+            // Redirection vers la page d'accueil ou admin selon le rôle
+            if ($utilisateur['role_createur'] === 'admin') {
+                header('Location: /easy-crea/public/index.php?action=admin');
             } else {
-                $error = "Nom d'utilisateur ou mot de passe incorrect.";
-                require './../views/utilisateur/connexion.php'; // Affiche le formulaire de connexion avec un message d'erreur
+                header('Location: /easy-crea/public/index.php?action=accueil');
             }
+            exit();
         } else {
-            require './../views/utilisateur/connexion.php'; // Affiche le formulaire de connexion
+            $error = "Nom d'utilisateur ou mot de passe incorrect.";
+            require './../views/utilisateur/connexion.php'; // Affiche le formulaire de connexion avec un message d'erreur
         }
+    } else {
+        require './../views/utilisateur/connexion.php'; // Affiche le formulaire de connexion
     }
+}
+
+
 }
 ?>

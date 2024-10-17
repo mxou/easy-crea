@@ -1,8 +1,10 @@
 <?php
+session_start();
 require_once '../config/config.local.php';
 require_once '../controllers/CarteController.php';
 require_once '../controllers/AccueilController.php';
 require_once '../controllers/UtilisateurController.php';
+require_once '../controllers/DeckController.php';
 
 // Gestion des erreurs personnalisées
 set_error_handler(function($errno, $errstr, $errfile, $errline) {
@@ -18,20 +20,36 @@ set_exception_handler(function($exception) {
     exit;
 });
 
+
 // Routeur simple pour traiter les requêtes
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
     $carteController = new CarteController($db);
-    $accueilController = new AccueilController(); // Corrigé ici : HomeController -> AccueilController
+    $accueilController = new AccueilController(); 
     $utilisateurController = new UtilisateurController($db);
+    $deckController = new DeckController($db);
 
     switch ($action) {
-        case 'afficher':
+        case 'afficherCarte':
             $id = $_GET['id'];
             $carteController->afficherCarte($id);
             break;
 
-        case 'creer':
+        case 'afficherToutesLesCartes':
+            $carteController->afficherToutesLesCartes();
+            break;
+
+
+        case 'afficherDeck':
+            $id = $_GET['id'];
+            $deckController->afficherDeck($id);
+            break;
+
+        case 'afficherTousLesDecks':
+            $deckController->afficherTousLesDecks();
+            break;
+
+        case 'creerCarte':
             $carteController->creerCarte();
             break;
 
@@ -46,18 +64,55 @@ if (isset($_GET['action'])) {
         case 'connexion':
             $utilisateurController->connexion();
             break;
+        
+        case 'deconnexion':
+            session_destroy();  // Détruit la session pour déconnecter l'utilisateur
+            header('Location: /easy-crea/public/index.php?action=connexion');
+            exit;
 
         case 'accueil':
-            $accueilController->index();
+            if (isset($_SESSION['utilisateur'])) { // Vérifie si l'utilisateur est connecté
+                $accueilController->index(); 
+            } else {
+                header('Location: /easy-crea/public/index.php?action=connexion');
+                exit;
+            }
+            break;
+            
+        case 'admin':
+            if (isset($_SESSION['utilisateur']) && $_SESSION['utilisateur']['role_createur'] === 'admin') {
+                require './../views/admin/dashboard.php'; // Affiche la page d'admin
+            } else {
+                header('Location: /easy-crea/public/index.php?action=connexion');
+                exit();
+            }
             break;
 
+        case 'creerDeck':
+            if (isset($_SESSION['utilisateur']) && $_SESSION['utilisateur']['role_createur'] === 'admin') {
+                $deckController->creerDeck();
+            } else {
+                header('Location: /easy-crea/public/index.php?action=accueil');
+                exit();
+            }
+            break;
+
+
         default:
-            // Si l'action n'est pas reconnue, redirige vers la page d'accueil
-            $accueilController->index(); 
+            if (isset($_SESSION['utilisateur'])) {
+                $accueilController->index();
+            } else {
+                header('Location: /easy-crea/public/index.php?action=connexion');
+                exit;
+            }
             break;
     }
 } else {
-    // Redirection vers la page de connexion si aucune action n'est spécifiée
-    header('Location: /easy-crea/public/index.php?action=connexion');
-    exit(); // Assurez-vous d'utiliser exit après header pour éviter toute sortie supplémentaire
+   if (isset($_SESSION['utilisateur'])) {
+        $accueilController = new AccueilController();
+        $accueilController->index();
+    } else {
+        header('Location: /easy-crea/public/index.php?action=connexion');
+        exit;
+    }
 }

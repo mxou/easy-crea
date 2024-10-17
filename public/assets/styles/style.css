@@ -1,3 +1,4 @@
+/* Style global pour toutes les pages */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -6,46 +7,143 @@
     font-family: monospace;
 }
 
-
-#section_login {
+body {
+    font-family: monospace;
+    margin: 0;
+    padding: 0;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
     height: 100vh;
+    text-align: center;
 }
 
+/* Style spécifique à la section de connexion */
+#section_login {
+    width: 90%;
+    max-width: 400px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Titre de la page de connexion */
+#section_login h1 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+/* Formulaire de connexion */
 #form_login {
-    /* border: 2px solid green; */
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    width: 80vw;
-    height: 50vh;
+    gap: 15px;
 }
 
-.input_login_container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-input {
-    border: 2px solid black;
-    width: 85%;
-    height: 50px;
-}
-
-label {
+/* Labels des champs de formulaire */
+#form_login label {
     font-size: 2rem;
+    text-align: left;
 }
 
-button {
-    background-color: black;
+/* Inputs du formulaire de connexion */
+#form_login input[type="text"],
+#form_login input[type="password"] {
+    padding: 10px;
+    font-size: 1rem;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+/* Bouton de soumission de la connexion */
+#form_login button {
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background-color: #000;
+    color: #fff;
     border: none;
-    color: white;
-    font-size: 1.5rem;
-    width: 50%;
-    height: 50px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#form_login button:hover {
+    background-color: #333;
+}
+
+/* Message d'erreur dans la page de connexion */
+#error {
+    color: red;
+    margin-bottom: 15px;
+}
+
+/* Lien d'inscription dans la page de connexion */
+#section_login p {
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+
+#section_login a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+#section_login a:hover {
+    text-decoration: underline;
+}
+
+/* Styles spécifiques à la page d'accueil */
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+/* Liens de navigation de la page d'accueil */
+a, #carte_form button, #deck_form button {
+    display: inline-block;
+    margin: 10px 0;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;  
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    background-color: black;
+}
+
+/* Espacement des liens sur la page d'accueil */
+a+a {
+    margin-top: 10px;
+}
+
+ul, li {
+    list-style-type: none;
+}
+
+.card {
+    border: 2px dashed black;
+    margin-bottom: 10%;
+}
+
+.card p:nth-child(1) {
+    border: 1px solid black;
+    margin: 5px;
+}
+
+#carte_form {
+    display: flex;
+    flex-direction: column;
+}
+
+#carte_form input, textarea {
+    border: 2px solid black;
+    width: 70vw;
+    height: 5vh;
 }

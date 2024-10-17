@@ -13,16 +13,12 @@
     <section id="section_login">
         <h1>Connexion</h1>
         <?php if (isset($error)) echo "<p style='color: red;'>$error</p>"; ?>
-        <form action="" method="POST" id="form_login">
-            <div class="input_login_container">
-                <label for=" nom_createur">Nom</label>
-                <input type="text" name="nom_createur" required>
-            </div>
+        <form action="/easy-crea/public/index.php?action=connexion" method="POST" id="form_login">
+            <label for=" nom_createur">Nom</label>
+            <input type="text" name="nom_createur" required>
 
-            <div class="input_login_container">
-                <label for=" mdp_createur">Mot de passe</label>
-                <input type="password" name="mdp_createur" required>
-            </div>
+            <label for=" mdp_createur">Mot de passe</label>
+            <input type="password" name="mdp_createur" required>
 
             <button type="submit">Se connecter</button>
         </form>

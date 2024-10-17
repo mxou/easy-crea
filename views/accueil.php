@@ -4,18 +4,24 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="stylesheet" href="./assets/styles/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil - EasyCrea</title>
 </head>
 
 <body>
     <h1>Bienvenue sur EasyCrea</h1>
-    <p>Ceci est votre page d'accueil.</p>
-    <a href="index.php?action=creer">Créer une carte</a> <br>
-    <a href="index.php?action=afficher">Afficher une carte</a><br>
-    <a href="/easy-crea/public/index.php?action=afficher&id=1">Afficher la carte ID 1</a> <br>
-    <a href="/easy-crea/public/index.php?action=inscription">Creer un compte</a>
+    <p>Bonjour <?php echo htmlspecialchars($_SESSION['utilisateur']['nom_createur']); ?> !</p>
+    </p>
+    <a class="accueil_a" href="index.php?action=creerCarte">Créer une carte</a> <br>
+    <a class="accueil_a" href="index.php?action=afficherDeck&id=1">Afficher un deck (id 1)</a><br>
+    <a class="accueil_a" href="/easy-crea/public/index.php?action=afficherCarte&id=1">Afficher la carte ID 1</a> <br>
+    <a class="accueil_a" href="/easy-crea/public/index.php?action=afficherToutesLesCartes">Afficher toutes les
+        cartes</a><br>
+    <a class="accueil_a" href="/easy-crea/public/index.php?action=afficherTousLesDecks">Afficher tous les
+        decks</a><br>
+    <a class="accueil_a" href="/easy-crea/public/index.php?action=deconnexion">Se déconnecter</a>
+
 
 
 </body>

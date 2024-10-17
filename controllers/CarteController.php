@@ -11,8 +11,14 @@ class CarteController {
     // Afficher une carte
     public function afficherCarte($id) {
         $carte = $this->carteModel->obtenirCarte($id);
-        require './../views/carte/afficherCarte.php';  // Appelle la vue pour afficher la carte
+        require './../views/carte/afficherCarte.php';  
     }
+
+    public function afficherToutesLesCartes() {
+    $cartes = $this->carteModel->obtenirToutesLesCartes();
+    require './../views/carte/afficherToutesLesCartes.php';  
+}
+
 
     // Créer une nouvelle carte
    public function creerCarte() {
