@@ -20,7 +20,8 @@
             <p>Date de début du deck : <?php echo htmlspecialchars($deck['date_debut_deck']); ?></p>
             <p>Date de fin du deck : <?php echo htmlspecialchars($deck['date_fin_deck']); ?></p>
             <p>Nombre de j'aimes : <?php echo htmlspecialchars($deck['nb_jaime']); ?></p>
-            <a class="accueil_a" href="index.php?action=creerCarte&id_deck=<?php echo $deck['id_deck']; ?>">Ajouter une carte</a>
+            <a class="accueil_a" href="index.php?action=creerCarte&id_deck=<?php echo $deck['id_deck']; ?>">Ajouter une
+                carte</a>
         </li>
         <?php endforeach; ?>
     </ul>
