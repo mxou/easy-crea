@@ -147,3 +147,8 @@ ul, li {
     width: 70vw;
     height: 5vh;
 }
+
+.decks {
+    border: 2px solid black;
+    margin: 5px;
+}

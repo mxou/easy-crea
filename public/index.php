@@ -49,9 +49,17 @@ if (isset($_GET['action'])) {
             $deckController->afficherTousLesDecks();
             break;
 
+        // Vérifie si l'action est "creerCarte" et récupère l'id_deck depuis les paramètres GET
         case 'creerCarte':
-            $carteController->creerCarte();
+            if (isset($_GET['id_deck'])) {
+                $id_deck = $_GET['id_deck'];  // Récupère l'ID du deck passé dans l'URL
+                $carteController->creerCarte($id_deck);  // Passe l'ID du deck à la fonction
+            } else {
+        // Gérer le cas où l'ID du deck n'est pas fourni
+                echo "Erreur : ID du deck manquant.";
+            }
             break;
+
 
         case 'success':
             require './../views/carte/success.php';
