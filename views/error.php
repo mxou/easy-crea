@@ -5,13 +5,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="stylesheet" href="./assets/styles/style.css">
     <title>Erreur</title>
 </head>
 
 <body>
     <h1>Une erreur est survenue</h1>
     <p>Veuillez réessayer plus tard.</p>
+    <p>Erreur : <?php echo htmlspecialchars($error); ?></p>
+    <a class="accueil_a" href="index.php?action=accueil">Retour à l'accueil</a>
 
     <?php if (isset($errno) && isset($errstr) && isset($errfile) && isset($errline)): ?>
     <h2>Détails de l'erreur :</h2>

@@ -7,6 +7,7 @@ class Carte {
     }
 
     // Créer une nouvelle carte
+    
     public function creerCarte($id_deck, $id_createur, $texte, $choix1_population, $choix1_finances, $choix2_population, $choix2_finances, $date_soumission) {
     $sql = "INSERT INTO carte (id_deck, id_createur, texte_carte, choix1_population, choix1_finances, choix2_population, choix2_finances, date_soumission)
             VALUES (:id_deck, :id_createur, :texte_carte, :choix1_population, :choix1_finances, :choix2_population, :choix2_finances, :date_soumission)";
@@ -51,6 +52,14 @@ public function verifierCarteExistante($id_deck, $id_createur) {
 
     return $stmt->fetchColumn() > 0;
 }
+
+public function obtenirCarteAleatoireDansDeck($id_deck) {
+    $sql = "SELECT * FROM carte WHERE id_deck = :id_deck ORDER BY RAND() LIMIT 1";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute([':id_deck' => $id_deck]);
+    return $stmt->fetch();
+}
+
 
 
 }

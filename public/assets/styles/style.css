@@ -152,3 +152,7 @@ ul, li {
     border: 2px solid black;
     margin: 5px;
 }
+
+.carte-reference {
+    border: 2px solid blue;
+}

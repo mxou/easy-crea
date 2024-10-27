@@ -11,6 +11,19 @@
 
 <body>
     <h1>Créer une Nouvelle Carte</h1>
+
+    <?php if (!empty($carteReference)): ?>
+    <div class="carte-reference">
+        <h2>Carte de Référence</h2>
+        <p><strong>Texte :</strong> <?php echo htmlspecialchars($carteReference['texte_carte']); ?></p>
+        <p><strong>Choix 1 Population :</strong> <?php echo htmlspecialchars($carteReference['choix1_population']); ?>
+        </p>
+        <p><strong>Choix 1 Finances :</strong> <?php echo htmlspecialchars($carteReference['choix1_finances']); ?></p>
+        <p><strong>Choix 2 Population :</strong> <?php echo htmlspecialchars($carteReference['choix2_population']); ?>
+        </p>
+        <p><strong>Choix 2 Finances :</strong> <?php echo htmlspecialchars($carteReference['choix2_finances']); ?></p>
+    </div>
+    <?php endif; ?>
     <form id="carte_form" method="POST" action="index.php?action=creerCarte&id_deck=<?php echo $id_deck; ?>">
         <label for="texte">Texte de la carte :</label>
         <textarea id="texte" name="texte" required></textarea>
