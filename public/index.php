@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once '../config/config.local.php';
+require_once '../config/config.prod.php';
+// require_once '../config/config.local.php';
 require_once '../controllers/CarteController.php';
 require_once '../controllers/AccueilController.php';
 require_once '../controllers/UtilisateurController.php';

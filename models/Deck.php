@@ -37,6 +37,7 @@ class Deck {
         return $stmt->fetchAll(); 
 }
 
+
 public function obtenirDecksDisponibles() {
     $sql = "SELECT * FROM deck WHERE date_fin_deck > NOW()";
     $stmt = $this->db->prepare($sql);

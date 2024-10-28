@@ -15,7 +15,7 @@ class DeckController {
     }
 
     public function afficherTousLesDecks() {
-    $decks = $this->deckModel->obtenirTousLesDecks();
+    $decks = $this->deckModel->obtenirDecksDisponibles();
     require './../views/deck/afficherTousLesDecks.php';  
 }
 
